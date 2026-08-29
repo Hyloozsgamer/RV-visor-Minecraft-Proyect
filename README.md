@@ -1,18 +1,13 @@
 <div align="center">
 
-```
-  ██████╗ ██╗   ██╗     ██╗   ██╗██╗███████╗██╗ ██████╗ ███╗   ██╗
-  ██╔══██╗██║   ██║     ██║   ██║██║██╔════╝██║██╔═══██╗████╗  ██║
-  ██████╔╝██║   ██║     ██║   ██║██║███████╗██║██║   ██║██╔██╗ ██║
-  ██╔══██╗╚██╗ ██╔╝     ╚██╗ ██╔╝██║╚════██║██║██║   ██║██║╚██╗██║
-  ██║  ██║ ╚████╔╝       ╚████╔╝ ██║███████║██║╚██████╔╝██║ ╚████║
-  ╚═╝  ╚═╝  ╚═══╝         ╚═══╝  ╚═╝╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝
-```
+# 🥽 RV-VISOR // NEURAL VR SYSTEM
+### *Next-Gen Native Virtual Reality Engine for Minecraft 1.21.1 Fabric + Sodium Plus*
 
-### ⚡ NEXT-GEN CYBERPUNK VIRTUAL REALITY ENGINE FOR MINECRAFT 1.21.1 ⚡
-#### *Native Stereo VR Engine // Fabric Loader // Sodium Plus High-FPS Optimization*
+<br/>
 
----
+![RV-Visor Cyberpunk Banner](assets/banner.jpg)
+
+<br/>
 
 [![Minecraft](https://img.shields.io/badge/Minecraft-1.21.1-32CD32?style=for-the-badge&logo=minecraft&logoColor=white)](https://www.minecraft.net/)
 [![Fabric](https://img.shields.io/badge/Fabric-Loader%200.16+-black?style=for-the-badge&logo=fabric&logoColor=white)](https://fabricmc.net/)
@@ -24,44 +19,30 @@
 
 </div>
 
-<br/>
+## 🌌 Visión General
 
-```
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-░░░░░░░░░░░░░░░░░░░░░ [ SYSTEM CORE // INITIALIZED ] ░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-```
-
-## 🌌 Visión General (Overview)
-
-**RV-Visor** es una arquitectura de realidad virtual avanzada y de alto rendimiento diseñada específicamente para **Minecraft 1.21.1 (Fabric)**. Transforma la experiencia cúbica tradicional en una inmersión holográfica de grado cibernético con seguimiento 6-DoF nativo, menús anclados espacialmente en 3D, puntero láser interactivo y sincronización perfecta con **Sodium Plus** para alcanzar **90 - 120 FPS estables**.
+**RV-Visor** es una arquitectura de realidad virtual avanzada y de alto rendimiento diseñada específicamente para **Minecraft 1.21.1 (Fabric)**. Transforma la experiencia cúbica tradicional en una inmersión holográfica con seguimiento 6-DoF nativo, menús anclados espacialmente en 3D, puntero láser interactivo y sincronización perfecta con **Sodium Plus** para alcanzar **90 - 120 FPS estables**.
 
 ---
 
-## ⚡ Características Principales (Key Features)
+## ⚡ Características Principales
 
-### 🥽 1. Menús Flotantes con Anclaje Espacial 3D (Spatial-Anchored Holo-UI)
+### 🥽 1. Menús Flotantes con Anclaje Espacial 3D
 * **Inmóviles en el Aire:** Al abrir el Inventario (**`X`**) o el Menú de Pausa (**`Y` / Escape**), el panel holográfico se clava en las coordenadas 3D del espacio de seguimiento. Puedes girar la cabeza o caminar en roomscale y el menú permanece 100% fijo en su lugar físico.
 * **Transparencia Cristalina:** Cero fondos negros ni recuadros oscuros. El mundo 3D de Minecraft permanece visible, iluminado y vivo detrás de las ventanas.
 * **Puntero Láser Neón:** Raycast interactivo 1:1 desde el mando derecho con punto de mira focal.
   * **Gatillo (Trigger):** Clic izquierdo (Coger stack / interactuar).
   * **Grip (Agarre):** Clic derecho (Dividir stack / colocar 1 ítem).
 
----
-
 ### 🛡️ 2. HUD Estilo Pegatina (Bottom-Right Sticker HUD)
 * **Discreto y No Invasivo:** Ubicado como un widget holográfico limpio en la esquina inferior derecha del visor.
 * **Información Vital al Instante:** Muestra Corazones de Salud ❤️, Muslos de Comida 🍗, Nivel de Experiencia, Puntos de Armadura y los 9 Slots del Hotbar con iconos nítidos y transparentes.
 * **Campo de Visión 100% Despejado:** Tu visión central y periférica queda totalmente libre para explorar, combatir y construir.
 
----
-
-### 🌊 3. Integración Total con Sodium Plus (Zero-Clipping Engine)
+### 🌊 3. Integración Total con Sodium Plus
 * **Arquitectura `WindowMixin`:** Sincronización a nivel de bytecode para que el motor de optimización de chunks y fluidos de Sodium trabaje a la resolución ultra-alta nativa del ojo.
 * **Agua y Cielo al 100%:** Sin cortes verticales, sin líneas de tijera (`Scissor`) y sin artefactos visuales en el horizonte.
 * **Supersampling Puro:** Máxima densidad de píxeles por grado (PPD) sin ningún zoom óptico ni estiramiento de pantalla.
-
----
 
 ### ⚙️ 4. Menú de Configuración Óptica & Persistencia en Disco
 * **Guardado Automático:** Archivo de configuración en `config/rvvisor.json` para recordar tus ajustes de escala de renderizado, anti-aliasing y nitidez entre sesiones.
@@ -70,13 +51,15 @@
 
 ---
 
-```
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-░░░░░░░░░░░░░░░░░░░░ [ CONTROLES // VR MAPPINGS ] ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-```
+## 🎮 Mapa de Controles VR
 
-## 🎮 Mapa de Controles (VR Controller Layout)
+<div align="center">
+
+![RV-Visor Controllers Infographic](assets/controllers.jpg)
+
+</div>
+
+<br/>
 
 | Botón / Control | Acción en Juego | Acción en Menú / Inventario |
 | :--- | :--- | :--- |
@@ -92,12 +75,6 @@
 
 ---
 
-```
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-░░░░░░░░░░░░░░░░░░░░ [ INSTALACIÓN // QUICK START ] ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-```
-
 ## 🚀 Instalación y Compilación
 
 ### Requisitos:
@@ -109,8 +86,8 @@
 ### Compilación desde el Código Fuente:
 ```bash
 # Clona el repositorio
-git clone https://github.com/tu-usuario/RV-Visor-Minecraft.git
-cd RV-Visor-Minecraft
+git clone git@github.com:Hyloozsgamer/RV-visor-Minecraft-Proyect.git
+cd RV-visor-Minecraft-Proyect
 
 # Compila el archivo .jar optimizado
 ./gradlew build -x test --no-daemon
@@ -122,16 +99,7 @@ El archivo compilado se generará en `build/libs/rvvisor-1.0.0.jar`. Cópialo a 
 
 <div align="center">
 
-```
-  ██████╗ ██╗   ██╗     ██╗   ██╗██╗███████╗██╗ ██████╗ ███╗   ██╗
-  ██║     ╚██╗ ██╔╝     ██║   ██║██║██╔════╝██║██╔═══██╗████╗  ██║
-  ██║      ╚████╔╝      ██║   ██║██║███████╗██║██║   ██║██╔██╗ ██║
-  ██║       ╚██╔╝       ╚██╗ ██╔╝██║╚════██║██║██║   ██║██║╚██╗██║
-  ███████╗   ██║         ╚████╔╝ ██║███████║██║╚██████╔╝██║ ╚████║
-  ╚══════╝   ╚═╝          ╚═══╝  ╚═╝╚══════╝╚═╝ ╚═════╝ ╚═╝  ╚═══╝
-```
-
 **⚡ RV-VISOR // NEURAL CYBERPUNK VR INTERFACE ⚡**  
-*Desarrollado con pasión para la comunidad de Minecraft VR.*
+*Desarrollado para la comunidad de Minecraft VR.*
 
 </div>
