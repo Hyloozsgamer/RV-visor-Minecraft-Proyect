@@ -1,0 +1,85 @@
+plugins {
+    id 'fabric-loom' version '1.9-SNAPSHOT'
+    id 'maven-publish'
+    id 'eclipse'
+    id 'idea'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.mod_id
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "Fabric"
+        url = "https://maven.fabricmc.net/"
+    }
+    maven {
+        name = "TerraformersMC"
+        url = "https://maven.terraformersmc.com/"
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings loom.officialMojangMappings()
+
+    modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+    modImplementation "com.terraformersmc:modmenu:11.0.3"
+
+    // JOML Math for VR Vector/Matrix calculations
+    include(implementation("org.joml:joml:1.10.8") { transitive = false })
+
+    // LWJGL OpenVR native bindings (bundled for Windows / SteamVR)
+    include(implementation("org.lwjgl:lwjgl-openvr:${project.lwjgl_version}") { transitive = false })
+    include(implementation("org.lwjgl:lwjgl-openvr:${project.lwjgl_version}:natives-windows") { transitive = false })
+
+    // LWJGL OpenXR native bindings
+    include(implementation("org.lwjgl:lwjgl-openxr:${project.lwjgl_version}") { transitive = false })
+    include(implementation("org.lwjgl:lwjgl-openxr:${project.lwjgl_version}:natives-windows") { transitive = false })
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "minecraft_version", project.minecraft_version
+    inputs.property "loader_version", project.fabric_loader_version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version,
+                "minecraft_version": project.minecraft_version,
+                "loader_version": project.fabric_loader_version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 21
+    it.options.encoding = "UTF-8"
+}
+
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.base.archivesName.get()}"}
+    }
+}
+
+tasks.register('copyModToSodiumPlus', Copy) {
+    dependsOn tasks.named('remapJar')
+    from tasks.named('remapJar').flatMap { it.archiveFile }
+    into 'C:/Users/msika/AppData/Roaming/ModrinthApp/profiles/Sodium Plus/mods'
+}
+
+tasks.named('build') {
+    finalizedBy tasks.named('copyModToSodiumPlus')
+}

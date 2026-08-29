@@ -1,0 +1,15 @@
+{
+  "rvvisor.title": "RV-Visor Settings",
+  "rvvisor.status.active": "VR Mode Active",
+  "rvvisor.status.inactive": "VR Mode Inactive",
+  "rvvisor.lens.resolution": "Lens Resolution",
+  "rvvisor.lens.supersampling": "Supersampling Scale",
+  "rvvisor.lens.ipd": "Interpupillary Distance (IPD)",
+  "rvvisor.lens.fov": "Field of View (FOV)",
+  "rvvisor.hands.tracking": "6-DOF Hand Tracking",
+  "rvvisor.hands.model": "Custom Hand Models",
+  "rvvisor.provider.openvr": "OpenVR / SteamVR",
+  "rvvisor.provider.custom": "Custom Visor Bridge",
+  "key.rvvisor.toggle_vr": "Toggle VR Mode",
+  "key.rvvisor.recenter": "Recenter VR Tracking"
+}

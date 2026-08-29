@@ -1,0 +1,18 @@
+{
+  "applications": [
+    {
+      "app_key": "rvvisor.rvvisor_mod",
+      "launch_type": "binary",
+      "binary_path_windows": "rvvisor.bat",
+      "is_dashboard_overlay": false,
+      "is_permanent": false,
+      "strings": {
+        "en_us": {
+          "name": "RVVisor - Minecraft VR",
+          "description": "Minecraft VR for SteamVR - RTX 3050 Ti Optimized"
+        }
+      },
+      "image_path": "icon.png"
+    }
+  ]
+}

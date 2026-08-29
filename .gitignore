@@ -1,0 +1,12 @@
+.gradle/
+build/
+bin/
+.settings/
+.classpath
+.project
+.vscode/
+*.launch
+learn-estudio/
+learn-estudio-mcxr/
+.agents/
+.env

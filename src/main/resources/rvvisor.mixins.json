@@ -1,0 +1,24 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.rvvisor.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "MinecraftMixin",
+    "GameRendererMixin",
+    "CameraMixin",
+    "LevelRendererMixin",
+    "SectionOcclusionGraphAccessor",
+    "KeyboardInputMixin",
+    "ItemInHandRendererMixin",
+    "OpenVRMixin",
+    "GuiMixin",
+    "ScreenMixin",
+    "TitleScreenMixin",
+    "LevelRendererAccessor",
+    "WindowMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

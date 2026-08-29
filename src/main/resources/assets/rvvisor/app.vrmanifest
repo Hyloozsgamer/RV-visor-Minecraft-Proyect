@@ -1,0 +1,18 @@
+{
+  "applications": [
+    {
+      "app_key": "rvvisor.rvvisor_mod",
+      "launch_type": "binary",
+      "binary_path_windows": "C:\\Users\\msika\\AppData\\Local\\Modrinth App\\Modrinth App.exe",
+      "is_dashboard_overlay": false,
+      "is_permanent": false,
+      "strings": {
+        "en_us": {
+          "name": "RVVisor - Minecraft VR",
+          "description": "Minecraft VR for SteamVR - RTX 3050 Ti Optimized"
+        }
+      },
+      "image_path": "C:\\Mods\\RVVisor\\icon.png"
+    }
+  ]
+}

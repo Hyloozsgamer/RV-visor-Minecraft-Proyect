@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "rvvisor",
+  "version": "${version}",
+  "name": "RV-Visor",
+  "description": "Next-Gen Virtual Reality Mod for Minecraft with custom lens resolution, stereo rendering, and 6-DOF hand tracking.",
+  "authors": [
+    "RV-Visor Team"
+  ],
+  "contact": {
+    "homepage": "https://github.com/rvvisor/rvvisor-mod",
+    "sources": "https://github.com/rvvisor/rvvisor-mod"
+  },
+  "license": "MIT",
+  "icon": "assets/rvvisor/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.rvvisor.RVVisorMod"
+    ],
+    "modmenu": [
+      "com.rvvisor.gui.RVVisorModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "rvvisor.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": ">=1.21 <=1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "modmenu": "*"
+  }
+}
