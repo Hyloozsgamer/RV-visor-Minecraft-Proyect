@@ -48,63 +48,57 @@
 
 <img src="assets/spatial_menu.png" alt="Menú Espacial 3D con Puntero Láser" width="650" style="border-radius: 8px; margin: 10px 0;" />
 
-</div>
+<br/><br/>
 
-* **Fijación Total en el Espacio:** Al abrir el Inventario (**`X`**) o el Menú de Pausa (**`Y` / Escape**), el panel queda flotando en las coordenadas 3D del mundo. Puedes mover la cabeza o desplazarte libremente y el menú permanecerá 100% inmóvil en su sitio físico.
-* **Transparencia Cristalina:** Sin fondos negros ni cajas oscuras; el entorno de Minecraft permanece iluminado y visible detrás.
-* **Puntero Láser Preciso:** Raycast interactivo desde el mando derecho con punto focal:
-  * **Gatillo Derecho:** Clic izquierdo (Mover/coger stack).
-  * **Grip Derecho:** Clic derecho (Dividir stack o colocar 1 ítem).
+<img src="assets/sign_spatial.png" alt="Fijación Total en el Espacio" width="850" />
+
+<br/><br/>
+
+<img src="assets/sign_transparency.png" alt="Transparencia Cristalina" width="850" />
+
+<br/><br/>
+
+<img src="assets/sign_laser.png" alt="Puntero Láser Interactivo" width="850" />
+
+<br/><br/>
 
 ---
-
-<div align="center">
 
 <br/>
 
 <img src="assets/sub_hud.png" alt="HUD Estilo Pegatina" width="750" />
 
-<br/>
+<br/><br/>
 
-</div>
+<img src="assets/sign_hud.png" alt="HUD Estilo Pegatina" width="850" />
 
-* **Discreto y Fuera de la Vista Central:** Ubicado limpiamente en la esquina inferior derecha del visor.
-* **Lectura Instantánea:** Corazones de vida, comida, nivel de XP, armadura y la barra de 9 slots con iconos nítidos y transparentes.
-* **Visión Despejada:** Máxima inmersión sin paneles molestos en medio del campo de visión.
+<br/><br/>
 
 ---
-
-<div align="center">
 
 <br/>
 
 <img src="assets/sub_sodium.png" alt="Integración Total con Sodium Plus" width="750" />
 
-<br/>
+<br/><br/>
 
-</div>
+<img src="assets/sign_sodium.png" alt="Integración Total con Sodium Plus" width="850" />
 
-* **Sin Recortes de Imagen (`WindowMixin`):** Sincronización a bajo nivel para que Sodium renderice el agua, niebla y cielo al 100% del campo de visión sin cortes verticales.
-* **Supersampling Real:** Densidad de píxeles nativa sin deformaciones ópticas ni zoom.
-* **Anti-Aliasing Hardware (MSAA 2x/4x) y Nitidez:** Bordes limpios sin dientes de sierra en bloques ni vegetación.
+<br/><br/>
 
 ---
-
-<div align="center">
 
 <br/>
 
 <img src="assets/sub_config.png" alt="Configuración Persistente en Disco" width="750" />
 
-<br/>
+<br/><br/>
 
-</div>
+<img src="assets/sign_config.png" alt="Configuración Persistente en Disco" width="850" />
 
-* **Guardado Automático:** Archivo `config/rvvisor.json` para guardar tus ajustes de resolución, MSAA y nitidez entre reinicios del juego.
+<br/><br/>
 
 ---
-
-<div align="center">
 
 <br/>
 
