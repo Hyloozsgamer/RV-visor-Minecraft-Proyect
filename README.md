@@ -5,7 +5,7 @@
 
 <br/>
 
-<img src="assets/header.png" alt="RV-Visor Minecraft VR Banner" width="750" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" />
+<img src="assets/header.png" alt="RV-Visor Minecraft VR Banner" width="800" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" />
 
 <br/><br/>
 
@@ -19,7 +19,7 @@
 
 <br/>
 
-<img src="assets/title_overview.png" alt="Visión General" width="380" />
+<img src="assets/title_overview.png" alt="Visión General" width="850" />
 
 </div>
 
@@ -33,7 +33,7 @@
 
 <br/>
 
-<img src="assets/title_features.png" alt="Características" width="380" />
+<img src="assets/title_features.png" alt="Características" width="850" />
 
 <br/>
 
@@ -43,7 +43,7 @@
 
 <div align="center">
 
-<img src="assets/spatial_menu.png" alt="Menú Espacial 3D con Puntero Láser" width="600" style="border-radius: 8px; margin: 15px 0;" />
+<img src="assets/spatial_menu.png" alt="Menú Espacial 3D con Puntero Láser" width="650" style="border-radius: 8px; margin: 15px 0;" />
 
 </div>
 
@@ -78,11 +78,11 @@
 
 <br/>
 
-<img src="assets/title_controls.png" alt="Controles VR" width="380" />
+<img src="assets/title_controls.png" alt="Controles VR" width="850" />
 
 <br/><br/>
 
-<img src="assets/controllers.png" alt="Esquema de Mandos VR" width="600" style="border-radius: 8px; margin: 15px 0;" />
+<img src="assets/controllers.png" alt="Esquema de Mandos VR" width="650" style="border-radius: 8px; margin: 15px 0;" />
 
 </div>
 
@@ -106,7 +106,7 @@
 
 <br/>
 
-<img src="assets/title_install.png" alt="Instalación" width="380" />
+<img src="assets/title_install.png" alt="Instalación" width="850" />
 
 <br/>
 
