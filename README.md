@@ -46,23 +46,21 @@
 
 <br/><br/>
 
-<img src="assets/sign_spatial.png" alt="Fijación Espacial 3D" width="700" style="border-radius: 8px; margin: 10px 0;" />
+<img src="assets/spatial_menu.png" alt="Menú Espacial 3D con Puntero Láser" width="650" style="border-radius: 8px; margin: 10px 0;" />
 
-<p align="center"><i>Al abrir el Inventario (X) o Pausa (Y), el panel queda flotando en las coordenadas 3D del mundo. Inmóvil en su sitio físico al mover la cabeza o desplazarte libremente.</i></p>
+<br/><br/>
 
-<br/>
+<img src="assets/sign_spatial.png" alt="Fijación Espacial 3D" width="850" />
 
-<img src="assets/sign_transparency.png" alt="Transparencia Cristalina" width="700" style="border-radius: 8px; margin: 10px 0;" />
+<br/><br/>
 
-<p align="center"><i>Sin fondos negros ni cajas oscuras; el entorno de Minecraft permanece iluminado, visible y con la iluminación ambiental original de tu mundo detrás de las ventanas.</i></p>
+<img src="assets/sign_transparency.png" alt="Transparencia Cristalina" width="850" />
 
-<br/>
+<br/><br/>
 
-<img src="assets/sign_laser.png" alt="Puntero Láser Interactivo" width="700" style="border-radius: 8px; margin: 10px 0;" />
+<img src="assets/sign_laser.png" alt="Puntero Láser Interactivo" width="850" />
 
-<p align="center"><i>Raycast 1:1 desde el mando derecho con punto focal: Gatillo Derecho = Clic Izquierdo (Mover Stack) | Grip Derecho = Clic Derecho (Dividir Stack o colocar 1 ítem).</i></p>
-
-<br/>
+<br/><br/>
 
 ---
 
@@ -70,47 +68,37 @@
 
 <img src="assets/sub_hud.png" alt="HUD Estilo Pegatina" width="750" />
 
-<br/>
+<br/><br/>
 
-</div>
+<img src="assets/sign_hud.png" alt="HUD Estilo Pegatina" width="850" />
 
-* **Discreto y Fuera de la Vista Central:** Ubicado limpiamente en la esquina inferior derecha del visor.
-* **Lectura Instantánea:** Corazones de vida, comida, nivel de XP, armadura y la barra de 9 slots con iconos nítidos y transparentes.
-* **Visión Despejada:** Máxima inmersión sin paneles molestos en medio del campo de visión.
+<br/><br/>
 
 ---
-
-<div align="center">
 
 <br/>
 
 <img src="assets/sub_sodium.png" alt="Integración Total con Sodium Plus" width="750" />
 
-<br/>
+<br/><br/>
 
-</div>
+<img src="assets/sign_sodium.png" alt="Integración Total con Sodium Plus" width="850" />
 
-* **Sin Recortes de Imagen (`WindowMixin`):** Sincronización a bajo nivel para que Sodium renderice el agua, niebla y cielo al 100% del campo de visión sin cortes verticales.
-* **Supersampling Real:** Densidad de píxeles nativa sin deformaciones ópticas ni zoom.
-* **Anti-Aliasing Hardware (MSAA 2x/4x) y Nitidez:** Bordes limpios sin dientes de sierra en bloques ni vegetación.
+<br/><br/>
 
 ---
-
-<div align="center">
 
 <br/>
 
 <img src="assets/sub_config.png" alt="Configuración Persistente en Disco" width="750" />
 
-<br/>
+<br/><br/>
 
-</div>
+<img src="assets/sign_config.png" alt="Configuración Persistente en Disco" width="850" />
 
-* **Guardado Automático:** Archivo `config/rvvisor.json` para guardar tus ajustes de resolución, MSAA y nitidez entre reinicios del juego.
+<br/><br/>
 
 ---
-
-<div align="center">
 
 <br/>
 
