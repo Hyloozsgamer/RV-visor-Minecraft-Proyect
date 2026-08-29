@@ -5,7 +5,7 @@
 
 <br/>
 
-<img src="assets/header.png" alt="RV-Visor Minecraft VR Banner" width="800" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" />
+<img src="assets/header.png" alt="RV-Visor Minecraft VR Banner" width="750" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" />
 
 <br/><br/>
 
@@ -17,21 +17,33 @@
 
 ---
 
+<br/>
+
+<img src="assets/title_overview.png" alt="Visión General" width="380" />
+
 </div>
 
-## 🌌 Visión General
+<br/>
 
 **RV-Visor** es un mod de realidad virtual de alto rendimiento diseñado exclusivamente para **Minecraft 1.21.1 (Fabric)**. Permite jugar en VR con seguimiento posicional 6-DoF nativo, menús anclados espacialmente en 3D con puntero láser interactivo y sincronización completa con **Sodium Plus** para mantener **90 - 120 FPS estables**.
 
 ---
 
-## ⚡ Características Principales
+<div align="center">
+
+<br/>
+
+<img src="assets/title_features.png" alt="Características" width="380" />
+
+<br/>
+
+</div>
 
 ### 🥽 1. Menús Flotantes con Anclaje Espacial 3D
 
 <div align="center">
 
-<img src="assets/spatial_menu.png" alt="Menú Espacial 3D con Puntero Láser" width="650" style="border-radius: 8px; margin: 15px 0;" />
+<img src="assets/spatial_menu.png" alt="Menú Espacial 3D con Puntero Láser" width="600" style="border-radius: 8px; margin: 15px 0;" />
 
 </div>
 
@@ -62,11 +74,15 @@
 
 ---
 
-## 🎮 Mapa de Controles VR
-
 <div align="center">
 
-<img src="assets/controllers.png" alt="Esquema de Mandos VR" width="650" style="border-radius: 8px; margin: 15px 0;" />
+<br/>
+
+<img src="assets/title_controls.png" alt="Controles VR" width="380" />
+
+<br/><br/>
+
+<img src="assets/controllers.png" alt="Esquema de Mandos VR" width="600" style="border-radius: 8px; margin: 15px 0;" />
 
 </div>
 
@@ -86,7 +102,15 @@
 
 ---
 
-## 🚀 Instalación y Compilación
+<div align="center">
+
+<br/>
+
+<img src="assets/title_install.png" alt="Instalación" width="380" />
+
+<br/>
+
+</div>
 
 ### Requisitos:
 * **Java JDK 21** (o superior)
