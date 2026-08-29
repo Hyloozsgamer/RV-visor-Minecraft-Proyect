@@ -1,6 +1,11 @@
 <div align="center">
 
-# 🥽 RV-VISOR // MINECRAFT VR MOD
+<br/>
+
+<img src="assets/title_main.png" alt="RV-Visor Minecraft VR Engine" width="850" />
+
+<br/><br/>
+
 ### *Motor de Realidad Virtual Nativo para Minecraft 1.21.1 Fabric + Sodium Plus*
 
 <br/>
@@ -33,17 +38,15 @@
 
 <br/>
 
-<img src="assets/title_features.png" alt="Características" width="850" />
+<img src="assets/title_features.png" alt="Características Principales" width="850" />
 
-<br/>
+<br/><br/>
 
-</div>
+<img src="assets/sub_menus.png" alt="Menús Flotantes con Anclaje Espacial 3D" width="750" />
 
-### 🥽 1. Menús Flotantes con Anclaje Espacial 3D
+<br/><br/>
 
-<div align="center">
-
-<img src="assets/spatial_menu.png" alt="Menú Espacial 3D con Puntero Láser" width="650" style="border-radius: 8px; margin: 15px 0;" />
+<img src="assets/spatial_menu.png" alt="Menú Espacial 3D con Puntero Láser" width="650" style="border-radius: 8px; margin: 10px 0;" />
 
 </div>
 
@@ -55,21 +58,48 @@
 
 ---
 
-### 🛡️ 2. HUD Estilo Pegatina (Bottom-Right Sticker HUD)
+<div align="center">
+
+<br/>
+
+<img src="assets/sub_hud.png" alt="HUD Estilo Pegatina" width="750" />
+
+<br/>
+
+</div>
+
 * **Discreto y Fuera de la Vista Central:** Ubicado limpiamente en la esquina inferior derecha del visor.
 * **Lectura Instantánea:** Corazones de vida, comida, nivel de XP, armadura y la barra de 9 slots con iconos nítidos y transparentes.
 * **Visión Despejada:** Máxima inmersión sin paneles molestos en medio del campo de visión.
 
 ---
 
-### 🌊 3. Integración Total con Sodium Plus
+<div align="center">
+
+<br/>
+
+<img src="assets/sub_sodium.png" alt="Integración Total con Sodium Plus" width="750" />
+
+<br/>
+
+</div>
+
 * **Sin Recortes de Imagen (`WindowMixin`):** Sincronización a bajo nivel para que Sodium renderice el agua, niebla y cielo al 100% del campo de visión sin cortes verticales.
 * **Supersampling Real:** Densidad de píxeles nativa sin deformaciones ópticas ni zoom.
 * **Anti-Aliasing Hardware (MSAA 2x/4x) y Nitidez:** Bordes limpios sin dientes de sierra en bloques ni vegetación.
 
 ---
 
-### 💾 4. Configuración Persistente en Disco
+<div align="center">
+
+<br/>
+
+<img src="assets/sub_config.png" alt="Configuración Persistente en Disco" width="750" />
+
+<br/>
+
+</div>
+
 * **Guardado Automático:** Archivo `config/rvvisor.json` para guardar tus ajustes de resolución, MSAA y nitidez entre reinicios del juego.
 
 ---
@@ -82,7 +112,7 @@
 
 <br/><br/>
 
-<img src="assets/controllers.png" alt="Esquema de Mandos VR" width="650" style="border-radius: 8px; margin: 15px 0;" />
+<img src="assets/controllers.png" alt="Esquema de Mandos VR" width="650" style="border-radius: 8px; margin: 10px 0;" />
 
 </div>
 
@@ -108,11 +138,14 @@
 
 <img src="assets/title_install.png" alt="Instalación" width="850" />
 
+<br/><br/>
+
+<img src="assets/sub_reqs.png" alt="Requisitos del Sistema" width="750" />
+
 <br/>
 
 </div>
 
-### Requisitos:
 * **Java JDK 21** (o superior)
 * **Minecraft 1.21.1** con **Fabric Loader 0.16+**
 * **Sodium** / **Sodium Plus**
