@@ -6,9 +6,9 @@
 
 <br/><br/>
 
-### *Motor de Realidad Virtual Nativo para Minecraft 1.21.1 Fabric + Sodium Plus*
+<img src="assets/tech_stack.png" alt="VR Engine | Minecraft 1.21.1 | Fabric Loader | Sodium Plus" width="850" />
 
-<br/>
+<br/><br/>
 
 <img src="assets/header.png" alt="RV-Visor Minecraft VR Banner" width="800" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3);" />
 
