@@ -128,13 +128,27 @@ public class VRFloatingGuiRenderer {
         if (!hmdPose.isValid()) return;
 
         try {
-            // Anchor menu in 3D tracking space at the exact moment it opens
+            // Anchor menu in 3D tracking space at eye level when it opens
             if (this.anchoredMenuPos == null) {
                 Vector3f headPos = hmdPose.getPosition();
                 Quaternionf headRot = hmdPose.getOrientation();
-                Vector3f fwd = headRot.transform(new Vector3f(0, 0, -this.guiDistance), new Vector3f());
-                this.anchoredMenuPos = new Vector3f(headPos).add(fwd);
-                this.anchoredMenuRot = new Quaternionf(headRot);
+
+                // Horizontal forward vector (ignoring pitch/roll so menu stays upright like a TV screen)
+                Vector3f fwd = headRot.transform(new Vector3f(0.0f, 0.0f, -1.0f), new Vector3f());
+                float hLen = (float) Math.sqrt(fwd.x * fwd.x + fwd.z * fwd.z);
+                if (hLen < 0.001f) {
+                    fwd.set(0.0f, 0.0f, -1.0f);
+                } else {
+                    fwd.x /= hLen;
+                    fwd.z /= hLen;
+                }
+
+                // Position 1.35m in front of head at eye level
+                this.anchoredMenuPos = new Vector3f(headPos.x + fwd.x * this.guiDistance, headPos.y, headPos.z + fwd.z * this.guiDistance);
+
+                // Upright orientation facing the player
+                float yaw = (float) Math.atan2(fwd.x, -fwd.z);
+                this.anchoredMenuRot = new Quaternionf().rotateY(yaw);
             }
 
             // Compute relative menu position and orientation relative to live head pose
@@ -151,7 +165,9 @@ public class VRFloatingGuiRenderer {
             // 1. Process Controller Laser & Raycast Interaction against the 3D pinned plane
             this.processLaserInteractionSpatial(mc, tracking, hmdPose, relPos, relRot, halfW, halfH);
 
-            // 2. Set ModelView matrix to render the anchored quad in Eye Space
+            // 2. Set Projection and ModelView matrix to render the anchored quad in Eye Space
+            RenderSystem.setProjectionMatrix(mod.getRenderEngine().getEyeProjectionMatrix(0.05f, 1000.0f), com.mojang.blaze3d.vertex.VertexSorting.DISTANCE_TO_ORIGIN);
+
             org.joml.Matrix4fStack modelViewStack = RenderSystem.getModelViewStack();
             modelViewStack.pushMatrix();
             modelViewStack.identity();

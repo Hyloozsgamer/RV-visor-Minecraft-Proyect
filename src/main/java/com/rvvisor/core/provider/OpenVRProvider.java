@@ -258,13 +258,16 @@ public class OpenVRProvider implements IVRProvider {
         if (!this.initialized) return null;
         try (MemoryStack stack = MemoryStack.stackPush()) {
             int vrEye = (eye == LensSettings.EYE_LEFT) ? EVREye_Eye_Left : EVREye_Eye_Right;
-            HmdMatrix44 proj = HmdMatrix44.calloc(stack);
-            VRSystem_GetProjectionMatrix(vrEye, nearClip, farClip, proj);
-            return new Matrix4f(
-                    proj.m(0), proj.m(4), proj.m(8), proj.m(12),
-                    proj.m(1), proj.m(5), proj.m(9), proj.m(13),
-                    proj.m(2), proj.m(6), proj.m(10), proj.m(14),
-                    proj.m(3), proj.m(7), proj.m(11), proj.m(15)
+            FloatBuffer left = stack.mallocFloat(1);
+            FloatBuffer right = stack.mallocFloat(1);
+            FloatBuffer top = stack.mallocFloat(1);
+            FloatBuffer bottom = stack.mallocFloat(1);
+
+            VRSystem_GetProjectionRaw(vrEye, left, right, top, bottom);
+            return new Matrix4f().frustum(
+                    left.get(0) * nearClip, right.get(0) * nearClip,
+                    top.get(0) * nearClip, bottom.get(0) * nearClip,
+                    nearClip, farClip
             );
         } catch (Throwable t) {
             return null;
