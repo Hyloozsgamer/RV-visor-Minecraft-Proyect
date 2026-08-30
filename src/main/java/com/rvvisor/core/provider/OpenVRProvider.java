@@ -273,8 +273,8 @@ public class OpenVRProvider implements IVRProvider {
             return new Matrix4f().frustum(
                     l,
                     r,
-                    t,
                     b,
+                    t,
                     nearClip,
                     farClip
             );

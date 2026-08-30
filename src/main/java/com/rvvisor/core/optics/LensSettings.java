@@ -42,8 +42,8 @@ public class LensSettings {
     // AMD FidelityFX CAS Sharpness (0.40 = sweet spot at 1.2x supersampling to prevent shimmering)
     private float sharpness = 0.40f;
 
-    // Hardware MSAA Samples (2x standard preserves 1.2GB VRAM compared to 4x)
-    private int msaaSamples = 2;
+    // Hardware MSAA Samples (1 = Direct texture render without MSAA depth blit issues)
+    private int msaaSamples = 1;
 
     // Interpupillary Distance (IPD) in meters (default: 63mm = 0.063m)
     private float ipd = 0.063f;
@@ -72,7 +72,7 @@ public class LensSettings {
         this.baseWidth = BASE_WIDTH;
         this.baseHeight = BASE_HEIGHT;
         this.supersamplingScale = TARGET_SS;
-        this.msaaSamples = 2;
+        this.msaaSamples = 1;
         this.sharpness = 0.40f;
         this.ipd = 0.063f;
         this.openXrFovConvention = true;
