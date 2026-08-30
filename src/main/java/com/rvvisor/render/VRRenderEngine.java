@@ -33,7 +33,6 @@ public class VRRenderEngine {
     private VREyeFramebuffer leftEyeFbo;
     private VREyeFramebuffer rightEyeFbo;
 
-    private final VRCASShader casShader = new VRCASShader();
     private final VRFloatingGuiRenderer guiRenderer = new VRFloatingGuiRenderer();
     private final VRHandRenderer handRenderer = new VRHandRenderer();
     private final VRMirrorRenderer mirrorRenderer = new VRMirrorRenderer();
@@ -68,7 +67,6 @@ public class VRRenderEngine {
 
         this.leftEyeFbo.ensureInitialized();
         this.rightEyeFbo.ensureInitialized();
-        this.casShader.ensureInitialized();
     }
 
     public void onRenderFrameStart() {
@@ -361,7 +359,6 @@ public class VRRenderEngine {
             this.rightEyeFbo.destroy();
             this.rightEyeFbo = null;
         }
-        this.casShader.destroy();
         this.guiRenderer.destroy();
         this.hudRenderer.destroy();
     }
