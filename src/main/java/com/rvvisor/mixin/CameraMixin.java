@@ -79,6 +79,7 @@ public abstract class CameraMixin {
                     float finalYaw = eyePose.getYawDegrees() + bodyYaw;
                     float finalPitch = -eyePose.getPitchDegrees();
                     this.setRotation(finalYaw, finalPitch);
+                    RVVisorMod.LOGGER.info("[RV] Camera VR pos: {} yaw: {} pitch: {} eye: {}", vrEyePos, finalYaw, finalPitch, currentEye);
                 }
             }
         }
