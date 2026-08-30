@@ -77,7 +77,7 @@ public abstract class CameraMixin {
 
                     // Synchronize yaw and pitch with Minecraft coordinate convention
                     float finalYaw = eyePose.getYawDegrees() + bodyYaw;
-                    float finalPitch = -eyePose.getPitchDegrees();
+                    float finalPitch = eyePose.getPitchDegrees();
                     this.setRotation(finalYaw, finalPitch);
                 }
             }

@@ -264,10 +264,19 @@ public class OpenVRProvider implements IVRProvider {
             FloatBuffer bottom = stack.mallocFloat(1);
 
             VRSystem_GetProjectionRaw(vrEye, left, right, top, bottom);
+
+            float jomlLeft = left.get(0) * nearClip;
+            float jomlRight = right.get(0) * nearClip;
+            float jomlBottom = -bottom.get(0) * nearClip;
+            float jomlTop = -top.get(0) * nearClip;
+
             return new Matrix4f().frustum(
-                    left.get(0) * nearClip, right.get(0) * nearClip,
-                    top.get(0) * nearClip, bottom.get(0) * nearClip,
-                    nearClip, farClip
+                    jomlLeft,
+                    jomlRight,
+                    jomlBottom,
+                    jomlTop,
+                    nearClip,
+                    farClip
             );
         } catch (Throwable t) {
             return null;
