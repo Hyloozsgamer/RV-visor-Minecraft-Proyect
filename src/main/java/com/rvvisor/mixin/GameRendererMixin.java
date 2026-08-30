@@ -101,13 +101,17 @@ public abstract class GameRendererMixin {
         }
     }
 
+    @Shadow
+    public abstract float getDepthFar();
+
     @Inject(method = "getProjectionMatrix", at = @At("HEAD"), cancellable = true)
     private void rvvisor$overrideProjectionMatrix(double fov, CallbackInfoReturnable<Matrix4f> cir) {
         RVVisorMod mod = RVVisorMod.getInstance();
         if (mod != null && mod.isVrActive()) {
             VRRenderEngine engine = mod.getRenderEngine();
             if (engine != null && engine.isRenderingVR()) {
-                cir.setReturnValue(engine.getEyeProjectionMatrix(0.05f, 1000.0f));
+                float depthFar = this.getDepthFar();
+                cir.setReturnValue(engine.getEyeProjectionMatrix(0.05f, depthFar > 100.0f ? depthFar : 1000.0f));
             }
         }
     }
