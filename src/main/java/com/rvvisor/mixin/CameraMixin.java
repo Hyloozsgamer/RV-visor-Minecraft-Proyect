@@ -75,9 +75,9 @@ public abstract class CameraMixin {
 
                     this.setPosition(vrEyePos);
 
-                    // Synchronize yaw and pitch with Minecraft coordinate convention (negate pitch like Vivecraft)
+                    // Synchronize yaw and pitch with Minecraft coordinate convention
                     float finalYaw = eyePose.getYawDegrees() + bodyYaw;
-                    float finalPitch = -eyePose.getPitchDegrees();
+                    float finalPitch = eyePose.getPitchDegrees();
                     this.setRotation(finalYaw, finalPitch);
                     RVVisorMod.LOGGER.info("[RV] Camera VR pos: {} yaw: {} pitch: {} eye: {}", vrEyePos, finalYaw, finalPitch, currentEye);
                 }
