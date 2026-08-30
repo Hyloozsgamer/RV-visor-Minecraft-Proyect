@@ -225,6 +225,11 @@ public class OpenVRProvider implements IVRProvider {
     }
 
     @Override
+    public void submitFrameWithDepth(int eye, int colorTextureId, int depthTextureId, int width, int height, float nearZ, float farZ) {
+        this.submitFrame(eye, colorTextureId, width, height);
+    }
+
+    @Override
     public void triggerHaptic(int hand, float durationSeconds, float frequency, float amplitude) {
         if (!this.initialized) return;
         int role = (hand == 0) ? ETrackedControllerRole_TrackedControllerRole_LeftHand : ETrackedControllerRole_TrackedControllerRole_RightHand;
