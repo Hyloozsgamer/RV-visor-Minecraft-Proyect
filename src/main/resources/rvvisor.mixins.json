@@ -16,8 +16,7 @@
     "ScreenMixin",
     "TitleScreenMixin",
     "LevelRendererAccessor",
-    "WindowMixin",
-    "SodiumWorldRendererMixin"
+    "WindowMixin"
   ],
   "injectors": {
     "defaultRequire": 1
