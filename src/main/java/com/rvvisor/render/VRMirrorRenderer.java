@@ -27,21 +27,14 @@ public class VRMirrorRenderer {
 
         RenderSystem.assertOnRenderThreadOrInit();
 
-        // Keep Minecraft's target updated for any code that reads the mirror texture.
-        if (this.minecraft.getMainRenderTarget() != null) {
-            int mainW = this.minecraft.getMainRenderTarget().width;
-            int mainH = this.minecraft.getMainRenderTarget().height;
-            GL30.glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, this.minecraft.getMainRenderTarget().frameBufferId);
-            GlStateManager._viewport(0, 0, mainW, mainH);
-            this.blitCropped(leftEye.getFramebufferId(), 0, 0, mainW, mainH, leftEye.getWidth(), leftEye.getHeight());
-        }
-
-        // Present the mirror directly to the physical window backbuffer.
         int physicalWidth = (this.minecraft.getWindow() != null) ? this.minecraft.getWindow().getWidth() : windowWidth;
         int physicalHeight = (this.minecraft.getWindow() != null) ? this.minecraft.getWindow().getHeight() : windowHeight;
-        GL30.glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, 0);
+
+        // Usa GlStateManager para no desincronizar el estado interno de Minecraft
+        GlStateManager._glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, 0);
         GlStateManager._viewport(0, 0, physicalWidth, physicalHeight);
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+        GL11.glDisable(GL11.GL_SCISSOR_TEST);
+        RenderSystem.disableScissor();
 
         if (this.mirrorMode == MirrorMode.LEFT_EYE) {
             this.blitCropped(leftEye.getFramebufferId(), 0, 0, physicalWidth, physicalHeight, leftEye.getWidth(), leftEye.getHeight());
@@ -53,7 +46,12 @@ public class VRMirrorRenderer {
             this.blitDirect(rightEye.getFramebufferId(), halfWidth, 0, physicalWidth, physicalHeight, rightEye.getWidth(), rightEye.getHeight());
         }
 
-        GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
+        // Devuelve el binding a MainRenderTarget para que Minecraft continue su flujo sin perderse
+        if (this.minecraft.getMainRenderTarget() != null) {
+            GlStateManager._glBindFramebuffer(GL30.GL_FRAMEBUFFER, this.minecraft.getMainRenderTarget().frameBufferId);
+        } else {
+            GlStateManager._glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
+        }
     }
 
     /**
