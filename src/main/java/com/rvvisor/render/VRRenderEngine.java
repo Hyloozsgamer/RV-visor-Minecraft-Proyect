@@ -175,12 +175,14 @@ public class VRRenderEngine {
                 if (this.rightEyeFbo != null) this.rightEyeFbo.resize(newW, newH, msaa);
             }
 
-            // Restore MainRenderTarget to desktop window resolution
+            // Restore MainRenderTarget to desktop window resolution and clear it to prevent ghost water
             Minecraft mc = Minecraft.getInstance();
             if (mc != null && mc.getMainRenderTarget() != null) {
                 if (mc.getMainRenderTarget().width != windowWidth || mc.getMainRenderTarget().height != windowHeight) {
                     mc.getMainRenderTarget().resize(windowWidth, windowHeight, Minecraft.ON_OSX);
                 }
+                mc.getMainRenderTarget().bindWrite(true);
+                mc.getMainRenderTarget().clear(Minecraft.ON_OSX);
             }
 
             // Mirror al monitor desktop
