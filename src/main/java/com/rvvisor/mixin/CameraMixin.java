@@ -8,6 +8,8 @@ import net.minecraft.client.Camera;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Quaternionf;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,6 +20,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class CameraMixin {
     @Shadow
     private Vec3 position;
+
+    @Shadow
+    @Final
+    private Quaternionf rotation;
+
+    @Shadow
+    private float xRot;
+
+    @Shadow
+    private float yRot;
 
     @Shadow
     protected abstract void setPosition(Vec3 pos);
@@ -52,7 +64,7 @@ public abstract class CameraMixin {
                     float worldOffsetX = localX * cos - localZ * sin;
                     float worldOffsetZ = localX * sin + localZ * cos;
 
-                    // Natural standing eye height: In VR, localY is the exact physical HMD height above the player's feet
+                    // Natural standing eye height
                     float eyeYOffset = (localY > 0.05f) ? localY : (float) entity.getEyeHeight();
 
                     Vec3 vrEyePos = new Vec3(
@@ -63,8 +75,9 @@ public abstract class CameraMixin {
 
                     this.setPosition(vrEyePos);
 
+                    // Synchronize yaw and pitch with Minecraft coordinate convention
                     float finalYaw = eyePose.getYawDegrees() + bodyYaw;
-                    float finalPitch = eyePose.getPitchDegrees();
+                    float finalPitch = -eyePose.getPitchDegrees();
                     this.setRotation(finalYaw, finalPitch);
                 }
             }

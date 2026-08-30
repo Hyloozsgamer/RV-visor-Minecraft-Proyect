@@ -15,8 +15,7 @@
     "GuiMixin",
     "ScreenMixin",
     "TitleScreenMixin",
-    "LevelRendererAccessor",
-    "WindowMixin"
+    "LevelRendererAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
