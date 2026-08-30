@@ -143,19 +143,6 @@ public class VRRenderEngine {
             );
 
             GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
-
-            // CAS Sharpening con Ping-Pong FBO
-            float sharpness = this.lensSettings.getSharpness();
-            if (sharpness > 0.001f && fbo.getSecondaryFramebufferId() != -1) {
-                this.casShader.render(
-                        fbo.getColorTextureId(),
-                        fbo.getSecondaryFramebufferId(),
-                        fbo.getWidth(),
-                        fbo.getHeight(),
-                        sharpness
-                );
-                fbo.blitSecondaryToPrimary();
-            }
         }
         this.currentEyePass = -1;
     }
