@@ -87,7 +87,7 @@ public class VRMirrorRenderer {
         GL30.glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, srcFbo);
         GL30.glBlitFramebuffer(
                 srcCropX0, srcCropY0, srcCropX1, srcCropY1,
-                dstX0, dstY1, dstX1, dstY0,
+                dstX0, dstY0, dstX1, dstY1,
                 GL11.GL_COLOR_BUFFER_BIT,
                 GL11.GL_LINEAR
         );
@@ -98,7 +98,7 @@ public class VRMirrorRenderer {
         GL30.glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, srcFbo);
         GL30.glBlitFramebuffer(
                 0, 0, srcWidth, srcHeight,
-                dstX0, dstY1, dstX1, dstY0,
+                dstX0, dstY0, dstX1, dstY1,
                 GL11.GL_COLOR_BUFFER_BIT,
                 GL11.GL_LINEAR
         );

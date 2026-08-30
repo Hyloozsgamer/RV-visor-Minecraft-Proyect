@@ -60,8 +60,8 @@ public class OpenVRProvider implements IVRProvider {
                 this.trackedDevicePoses = TrackedDevicePose.calloc(k_unMaxTrackedDeviceCount);
             }
 
-            // SteamVR texture bounds (flip for OpenGL texture orientation)
-            this.textureBounds.uMin(0.0f).uMax(1.0f).vMin(1.0f).vMax(0.0f);
+            // SteamVR standard texture bounds (0, 1 for OpenGL without flip)
+            this.textureBounds.uMin(0.0f).uMax(1.0f).vMin(0.0f).vMax(1.0f);
 
             this.leftEyeTexture.eType(VR.ETextureType_TextureType_OpenGL);
             this.leftEyeTexture.eColorSpace(VR.EColorSpace_ColorSpace_Gamma);
