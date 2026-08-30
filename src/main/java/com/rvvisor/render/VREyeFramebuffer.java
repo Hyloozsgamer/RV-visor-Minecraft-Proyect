@@ -261,6 +261,27 @@ public class VREyeFramebuffer {
         }
     }
 
+    public void blitToScreen(int width, int height, boolean disableBlend) {
+        RenderSystem.assertOnRenderThread();
+        GlStateManager._colorMask(true, true, true, false);
+        GlStateManager._disableDepthTest();
+        GlStateManager._depthMask(false);
+        GlStateManager._viewport(0, 0, width, height);
+        if (disableBlend) {
+            GlStateManager._disableBlend();
+        }
+
+        GlStateManager._glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, this.framebufferId);
+        GlStateManager._glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, 0);
+        GL30.glBlitFramebuffer(0, 0, this.width, this.height, 0, 0, width, height, GL11.GL_COLOR_BUFFER_BIT, GL11.GL_NEAREST);
+        GlStateManager._glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
+
+        GlStateManager._depthMask(true);
+        GlStateManager._enableDepthTest();
+        GlStateManager._enableBlend();
+        GlStateManager._colorMask(true, true, true, true);
+    }
+
     public int getSecondaryFramebufferId() {
         return this.secondaryFramebufferId;
     }

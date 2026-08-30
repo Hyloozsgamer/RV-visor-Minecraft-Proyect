@@ -19,6 +19,7 @@ import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL30;
 
 /**
  * Master VR Rendering Engine for Fabric 1.21.1
@@ -92,7 +93,7 @@ public class VRRenderEngine {
     }
 
     /**
-     * Inicia el render del ojo directamente en su propio FBO dedicado (sin tocar ni contaminar MainRenderTarget).
+     * Inicia el render del ojo preparando MainRenderTarget a resolucion nativa VR (compatible con Sodium, Iris, nubes, agua y cielo).
      */
     public void beginEyePass(int eye, float partialTicks) {
         this.currentEyePass = eye;
@@ -100,12 +101,19 @@ public class VRRenderEngine {
         this.trackingContext.updateInterpolatedPoses(partialTicks);
 
         VREyeFramebuffer fbo = (eye == 0) ? this.leftEyeFbo : this.rightEyeFbo;
+        Minecraft mc = Minecraft.getInstance();
 
-        if (fbo != null) {
+        if (fbo != null && mc != null && mc.getMainRenderTarget() != null) {
             fbo.ensureInitialized();
-            fbo.bindWrite(true);
-            RenderSystem.clearColor(0.0f, 0.0f, 0.0f, 0.0f);
-            RenderSystem.clear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT, false);
+            int eyeW = fbo.getWidth();
+            int eyeH = fbo.getHeight();
+
+            if (mc.getMainRenderTarget().width != eyeW || mc.getMainRenderTarget().height != eyeH) {
+                mc.getMainRenderTarget().resize(eyeW, eyeH, Minecraft.ON_OSX);
+            }
+            mc.getMainRenderTarget().clear(Minecraft.ON_OSX);
+            mc.getMainRenderTarget().bindWrite(true);
+
             GL11.glDisable(GL11.GL_SCISSOR_TEST);
             RenderSystem.disableScissor();
             GL11.glEnable(GL11.GL_DEPTH_TEST);
@@ -115,18 +123,29 @@ public class VRRenderEngine {
             RenderSystem.defaultBlendFunc();
             GL11.glEnable(GL11.GL_CULL_FACE);
             GlStateManager._enableDepthTest();
-            GlStateManager._viewport(0, 0, fbo.getWidth(), fbo.getHeight());
-            RenderSystem.viewport(0, 0, fbo.getWidth(), fbo.getHeight());
+            GlStateManager._viewport(0, 0, eyeW, eyeH);
+            RenderSystem.viewport(0, 0, eyeW, eyeH);
         }
     }
 
     /**
-     * Finaliza el render del ojo y restaura el binding del framebuffer.
+     * Finaliza el render del ojo copiando MainRenderTarget (con agua, cielo, nubes y terreno completos) a su FBO dedicado.
      */
     public void endEyePass() {
         VREyeFramebuffer fbo = (this.currentEyePass == 0) ? this.leftEyeFbo : this.rightEyeFbo;
-        if (fbo != null) {
-            fbo.resolveMSAA();
+        Minecraft mc = Minecraft.getInstance();
+        if (fbo != null && mc != null && mc.getMainRenderTarget() != null) {
+            GlStateManager._glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, mc.getMainRenderTarget().frameBufferId);
+            GlStateManager._glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, fbo.getFramebufferId());
+
+            GL30.glBlitFramebuffer(
+                    0, 0, fbo.getWidth(), fbo.getHeight(),
+                    0, 0, fbo.getWidth(), fbo.getHeight(),
+                    GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT,
+                    GL11.GL_NEAREST
+            );
+
+            GlStateManager._glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
         }
         this.currentEyePass = -1;
     }
@@ -180,18 +199,18 @@ public class VRRenderEngine {
                 if (this.rightEyeFbo != null) this.rightEyeFbo.resize(newW, newH, msaa);
             }
 
-            // Restore MainRenderTarget to desktop window resolution and clear it to prevent ghost water
+            // Mirror directo al monitor desde el ojo izquierdo resuelto
+            if (this.leftEyeFbo != null && this.leftEyeFbo.isComplete()) {
+                this.leftEyeFbo.blitToScreen(windowWidth, windowHeight, false);
+            }
+
+            // Restore MainRenderTarget to desktop window resolution
             Minecraft mc = Minecraft.getInstance();
             if (mc != null && mc.getMainRenderTarget() != null) {
                 if (mc.getMainRenderTarget().width != windowWidth || mc.getMainRenderTarget().height != windowHeight) {
                     mc.getMainRenderTarget().resize(windowWidth, windowHeight, Minecraft.ON_OSX);
                 }
-                mc.getMainRenderTarget().bindWrite(true);
-                mc.getMainRenderTarget().clear(Minecraft.ON_OSX);
             }
-
-            // Mirror al monitor desktop
-            this.mirrorRenderer.renderMirror(this.leftEyeFbo, this.rightEyeFbo, windowWidth, windowHeight);
 
         } finally {
             this.currentEyePass = -1;
