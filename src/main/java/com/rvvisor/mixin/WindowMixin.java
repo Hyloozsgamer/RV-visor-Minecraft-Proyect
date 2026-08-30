@@ -79,10 +79,10 @@ public abstract class WindowMixin {
     }
 
     @Inject(method = "getGuiScale", at = @At("HEAD"), cancellable = true, require = 0)
-    private void rvvisor$getVrGuiScale(CallbackInfoReturnable<Integer> cir) {
+    private void rvvisor$getVrGuiScale(CallbackInfoReturnable<Double> cir) {
         RVVisorMod mod = RVVisorMod.getInstance();
         if (mod != null && mod.isVrActive()) {
-            cir.setReturnValue(VIRTUAL_GUI_SCALE);
+            cir.setReturnValue((double) VIRTUAL_GUI_SCALE);
         }
     }
 }
