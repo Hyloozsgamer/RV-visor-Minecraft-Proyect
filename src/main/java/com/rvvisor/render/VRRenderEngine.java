@@ -242,8 +242,6 @@ public class VRRenderEngine {
 
         int defaultLight = LevelRenderer.getLightColor(mc.level, mc.player.blockPosition());
         this.handRenderer.renderHands(poseStack, bufferSource, defaultLight, partialTicks, this.trackingContext, this.currentEyePass, camera);
-        this.renderCrosshairInWorld(poseStack, bufferSource, camera, partialTicks);
-        this.hudRenderer.renderHudInWorld(poseStack, bufferSource, camera, partialTicks);
         this.guiRenderer.renderGuiInWorld(poseStack, bufferSource, camera, partialTicks);
 
         bufferSource.endBatch();
