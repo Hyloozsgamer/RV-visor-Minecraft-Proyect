@@ -93,7 +93,7 @@ public class VRRenderEngine {
     }
 
     /**
-     * Inicia el render del ojo preparando el MainRenderTarget con la resolución exacta del FBO de VR.
+     * Inicia el render del ojo directamente en su propio FBO dedicado (sin tocar ni contaminar MainRenderTarget).
      */
     public void beginEyePass(int eye, float partialTicks) {
         this.currentEyePass = eye;
@@ -103,49 +103,29 @@ public class VRRenderEngine {
         VREyeFramebuffer fbo = (eye == 0) ? this.leftEyeFbo : this.rightEyeFbo;
         Minecraft mc = Minecraft.getInstance();
 
-        if (fbo != null && mc != null && mc.getMainRenderTarget() != null) {
+        if (fbo != null && mc != null) {
             fbo.ensureInitialized();
-            int fboW = fbo.getWidth();
-            int fboH = fbo.getHeight();
+            fbo.bindWrite(true);
+            fbo.clear(Minecraft.ON_OSX);
 
-            // Render natively at full VR Eye Resolution for ultra-sharp visuals without aliasing
-            if (mc.getMainRenderTarget().width != fboW || mc.getMainRenderTarget().height != fboH) {
-                mc.getMainRenderTarget().resize(fboW, fboH, Minecraft.ON_OSX);
-            }
-
-            mc.getMainRenderTarget().clear(Minecraft.ON_OSX);
-            mc.getMainRenderTarget().bindWrite(true);
             GL11.glDisable(GL11.GL_SCISSOR_TEST);
             RenderSystem.disableScissor();
-            GlStateManager._viewport(0, 0, fboW, fboH);
-            RenderSystem.viewport(0, 0, fboW, fboH);
+            GlStateManager._viewport(0, 0, fbo.getWidth(), fbo.getHeight());
+            RenderSystem.viewport(0, 0, fbo.getWidth(), fbo.getHeight());
         }
     }
 
     /**
-     * Captura el renderizado del ojo desde MainRenderTarget al FBO del ojo nativo.
+     * Finaliza el render del ojo y restaura el binding del framebuffer.
      */
     public void endEyePass() {
         VREyeFramebuffer fbo = (this.currentEyePass == 0) ? this.leftEyeFbo : this.rightEyeFbo;
+        if (fbo != null) {
+            fbo.resolveMSAA();
+        }
         Minecraft mc = Minecraft.getInstance();
-        if (fbo != null && mc != null && mc.getMainRenderTarget() != null) {
-            fbo.ensureInitialized();
-
-            GL11.glDisable(GL11.GL_SCISSOR_TEST);
-            RenderSystem.disableScissor();
-            GL30.glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, mc.getMainRenderTarget().frameBufferId);
-            GL30.glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, fbo.getFramebufferId());
-
-            GL30.glBlitFramebuffer(
-                    0, 0, fbo.getWidth(), fbo.getHeight(),
-                    0, 0, fbo.getWidth(), fbo.getHeight(),
-                    GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT,
-                    GL11.GL_NEAREST
-            );
-
-            GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
-            GL11.glDisable(GL11.GL_SCISSOR_TEST);
-            RenderSystem.disableScissor();
+        if (mc != null && mc.getMainRenderTarget() != null) {
+            mc.getMainRenderTarget().bindWrite(true);
         }
         this.currentEyePass = -1;
     }
@@ -197,6 +177,14 @@ public class VRRenderEngine {
                 int msaa = this.lensSettings.getMsaaSamples();
                 if (this.leftEyeFbo != null) this.leftEyeFbo.resize(newW, newH, msaa);
                 if (this.rightEyeFbo != null) this.rightEyeFbo.resize(newW, newH, msaa);
+            }
+
+            // Restore MainRenderTarget to desktop window resolution
+            Minecraft mc = Minecraft.getInstance();
+            if (mc != null && mc.getMainRenderTarget() != null) {
+                if (mc.getMainRenderTarget().width != windowWidth || mc.getMainRenderTarget().height != windowHeight) {
+                    mc.getMainRenderTarget().resize(windowWidth, windowHeight, Minecraft.ON_OSX);
+                }
             }
 
             // Mirror al monitor desktop

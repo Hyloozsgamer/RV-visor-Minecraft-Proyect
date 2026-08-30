@@ -179,6 +179,10 @@ public class VREyeFramebuffer {
         RenderSystem.clear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT, false);
     }
 
+    public void clear(boolean onMac) {
+        this.clear(0.0f, 0.0f, 0.0f, 1.0f);
+    }
+
     public boolean isComplete() {
         if (this.framebufferId == -1) return false;
         int prevFbo = GL11.glGetInteger(GL30.GL_FRAMEBUFFER_BINDING);
