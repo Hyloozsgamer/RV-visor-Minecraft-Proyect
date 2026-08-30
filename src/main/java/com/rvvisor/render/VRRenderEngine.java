@@ -103,10 +103,13 @@ public class VRRenderEngine {
 
         if (fbo != null) {
             fbo.ensureInitialized();
-            fbo.clear(0.0f, 0.0f, 0.0f, 1.0f);
-
+            fbo.bindWrite(true);
+            RenderSystem.clearColor(0.0f, 0.0f, 0.0f, 0.0f);
+            RenderSystem.clear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT, false);
             GL11.glDisable(GL11.GL_SCISSOR_TEST);
             RenderSystem.disableScissor();
+            GL11.glEnable(GL11.GL_DEPTH_TEST);
+            GlStateManager._enableDepthTest();
             GlStateManager._viewport(0, 0, fbo.getWidth(), fbo.getHeight());
             RenderSystem.viewport(0, 0, fbo.getWidth(), fbo.getHeight());
         }

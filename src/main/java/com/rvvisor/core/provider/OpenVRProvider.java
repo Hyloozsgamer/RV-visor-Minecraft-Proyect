@@ -60,9 +60,8 @@ public class OpenVRProvider implements IVRProvider {
                 this.trackedDevicePoses = TrackedDevicePose.calloc(k_unMaxTrackedDeviceCount);
             }
 
-            // SteamVR compositor expects the texture as-is from OpenGL (Y=0 at bottom).
-            // vMin=0 / vMax=1 maps the full texture without any vertical flip.
-            this.textureBounds.uMin(0.0f).uMax(1.0f).vMin(0.0f).vMax(1.0f);
+            // SteamVR compositor vertical flip for OpenGL texture orientation
+            this.textureBounds.uMin(0.0f).uMax(1.0f).vMin(1.0f).vMax(0.0f);
 
             this.leftEyeTexture.eType(VR.ETextureType_TextureType_OpenGL);
             this.leftEyeTexture.eColorSpace(VR.EColorSpace_ColorSpace_Gamma);
@@ -270,11 +269,14 @@ public class OpenVRProvider implements IVRProvider {
             float t = top.get(0) * nearClip;
             float b = bottom.get(0) * nearClip;
 
+            float minY = Math.min(b, t);
+            float maxY = Math.max(b, t);
+
             return new Matrix4f().frustum(
                     l,
                     r,
-                    b,
-                    t,
+                    minY,
+                    maxY,
                     nearClip,
                     farClip
             );
