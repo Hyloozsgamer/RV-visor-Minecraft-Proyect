@@ -100,12 +100,10 @@ public class VRRenderEngine {
         this.trackingContext.updateInterpolatedPoses(partialTicks);
 
         VREyeFramebuffer fbo = (eye == 0) ? this.leftEyeFbo : this.rightEyeFbo;
-        Minecraft mc = Minecraft.getInstance();
 
-        if (fbo != null && mc != null) {
+        if (fbo != null) {
             fbo.ensureInitialized();
-            fbo.bindWrite(true);
-            fbo.clear(Minecraft.ON_OSX);
+            fbo.clear(0.0f, 0.0f, 0.0f, 1.0f);
 
             GL11.glDisable(GL11.GL_SCISSOR_TEST);
             RenderSystem.disableScissor();
