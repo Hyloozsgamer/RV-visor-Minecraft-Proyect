@@ -115,13 +115,15 @@ public class VRRenderEngine {
 
             mc.getMainRenderTarget().clear(Minecraft.ON_OSX);
             mc.getMainRenderTarget().bindWrite(true);
+            GL11.glDisable(GL11.GL_SCISSOR_TEST);
+            RenderSystem.disableScissor();
+            GlStateManager._viewport(0, 0, fboW, fboH);
             RenderSystem.viewport(0, 0, fboW, fboH);
-            GlStateManager._disableScissorTest();
         }
     }
 
     /**
-     * Captura el renderizado del ojo desde MainRenderTarget al FBO del ojo y aplica CAS.
+     * Captura el renderizado del ojo desde MainRenderTarget al FBO del ojo nativo.
      */
     public void endEyePass() {
         VREyeFramebuffer fbo = (this.currentEyePass == 0) ? this.leftEyeFbo : this.rightEyeFbo;
@@ -129,7 +131,8 @@ public class VRRenderEngine {
         if (fbo != null && mc != null && mc.getMainRenderTarget() != null) {
             fbo.ensureInitialized();
 
-            GlStateManager._disableScissorTest();
+            GL11.glDisable(GL11.GL_SCISSOR_TEST);
+            RenderSystem.disableScissor();
             GL30.glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, mc.getMainRenderTarget().frameBufferId);
             GL30.glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, fbo.getFramebufferId());
 
@@ -141,6 +144,8 @@ public class VRRenderEngine {
             );
 
             GL30.glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
+            GL11.glDisable(GL11.GL_SCISSOR_TEST);
+            RenderSystem.disableScissor();
         }
         this.currentEyePass = -1;
     }

@@ -65,10 +65,10 @@ public class OpenVRProvider implements IVRProvider {
             this.textureBounds.uMin(0.0f).uMax(1.0f).vMin(0.0f).vMax(1.0f);
 
             this.leftEyeTexture.eType(VR.ETextureType_TextureType_OpenGL);
-            this.leftEyeTexture.eColorSpace(VR.EColorSpace_ColorSpace_Auto);
+            this.leftEyeTexture.eColorSpace(VR.EColorSpace_ColorSpace_Gamma);
 
             this.rightEyeTexture.eType(VR.ETextureType_TextureType_OpenGL);
-            this.rightEyeTexture.eColorSpace(VR.EColorSpace_ColorSpace_Auto);
+            this.rightEyeTexture.eColorSpace(VR.EColorSpace_ColorSpace_Gamma);
 
             // Fetch recommended settings from SteamVR
             this.hardwareLensSettings = this.queryRecommendedSettings();
