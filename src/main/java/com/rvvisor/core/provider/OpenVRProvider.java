@@ -248,12 +248,7 @@ public class OpenVRProvider implements IVRProvider {
     }
 
     private void convertHmdMatrixToMatrix4f(HmdMatrix34 hmdMat, Matrix4f out) {
-        out.set(
-                hmdMat.m(0), hmdMat.m(1), hmdMat.m(2), hmdMat.m(3),
-                hmdMat.m(4), hmdMat.m(5), hmdMat.m(6), hmdMat.m(7),
-                hmdMat.m(8), hmdMat.m(9), hmdMat.m(10), hmdMat.m(11),
-                0.0f, 0.0f, 0.0f, 1.0f
-        );
+        SteamVRUtils.convertSteamVRMatrix3ToMatrix4f(hmdMat, out);
     }
 
     public Matrix4f getProjectionMatrix(int eye, float nearClip, float farClip) {
