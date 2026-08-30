@@ -20,10 +20,13 @@ public abstract class ItemInHandRendererMixin {
         RVVisorMod mod = RVVisorMod.getInstance();
         if (mod != null && mod.isVrActive()) {
             VRRenderEngine engine = mod.getRenderEngine();
-            if (engine != null && engine.getHandRenderer() != null) {
-                // Delegate 6-DOF hand and held item rendering to VRHandRenderer
-                engine.getHandRenderer().renderHands(poseStack, bufferSource, combinedLight, partialTicks, mod.getTrackingContext());
-                ci.cancel();
+            if (engine != null) {
+                VRHandRenderer handRenderer = engine.getHandRenderer();
+                if (handRenderer != null) {
+                    // Delegate 6-DOF hand and held item rendering to VRHandRenderer
+                    handRenderer.renderHands(poseStack, bufferSource, combinedLight, partialTicks, mod.getTrackingContext());
+                    ci.cancel();
+                }
             }
         }
     }
