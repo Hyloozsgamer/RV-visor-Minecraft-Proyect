@@ -123,10 +123,6 @@ public class VRRenderEngine {
         if (fbo != null) {
             fbo.resolveMSAA();
         }
-        Minecraft mc = Minecraft.getInstance();
-        if (mc != null && mc.getMainRenderTarget() != null) {
-            mc.getMainRenderTarget().bindWrite(true);
-        }
         this.currentEyePass = -1;
     }
 

@@ -165,8 +165,6 @@ public class OpenVRProvider implements IVRProvider {
             if (!this.initialized) return;
         }
 
-        context.beginNewFrame();
-
         // Wait for compositor vsync and get poses
         int error = VRCompositor_WaitGetPoses(this.trackedDevicePoses, null);
         if (error != EVRCompositorError_VRCompositorError_None) {
@@ -210,7 +208,7 @@ public class OpenVRProvider implements IVRProvider {
         if (eye == LensSettings.EYE_LEFT) {
             this.leftEyeTexture.handle(textureId);
             this.leftEyeTexture.eType(VR.ETextureType_TextureType_OpenGL);
-            this.leftEyeTexture.eColorSpace(VR.EColorSpace_ColorSpace_Auto);
+            this.leftEyeTexture.eColorSpace(VR.EColorSpace_ColorSpace_Gamma);
             int err = VRCompositor_Submit(EVREye_Eye_Left, this.leftEyeTexture, this.textureBounds, EVRSubmitFlags_Submit_Default);
             if (err != 0) {
                 RVVisorMod.LOGGER.error("[RV-Visor] Submit Left Eye Error: {}", err);
@@ -218,7 +216,7 @@ public class OpenVRProvider implements IVRProvider {
         } else {
             this.rightEyeTexture.handle(textureId);
             this.rightEyeTexture.eType(VR.ETextureType_TextureType_OpenGL);
-            this.rightEyeTexture.eColorSpace(VR.EColorSpace_ColorSpace_Auto);
+            this.rightEyeTexture.eColorSpace(VR.EColorSpace_ColorSpace_Gamma);
             int err = VRCompositor_Submit(EVREye_Eye_Right, this.rightEyeTexture, this.textureBounds, EVRSubmitFlags_Submit_Default);
             if (err != 0) {
                 RVVisorMod.LOGGER.error("[RV-Visor] Submit Right Eye Error: {}", err);
@@ -246,10 +244,10 @@ public class OpenVRProvider implements IVRProvider {
 
     private void convertHmdMatrixToMatrix4f(HmdMatrix34 hmdMat, Matrix4f out) {
         out.set(
-                hmdMat.m(0), hmdMat.m(4), hmdMat.m(8), 0.0f,
-                hmdMat.m(1), hmdMat.m(5), hmdMat.m(9), 0.0f,
-                hmdMat.m(2), hmdMat.m(6), hmdMat.m(10), 0.0f,
-                hmdMat.m(3), hmdMat.m(7), hmdMat.m(11), 1.0f
+                hmdMat.m(0), hmdMat.m(1), hmdMat.m(2), hmdMat.m(3),
+                hmdMat.m(4), hmdMat.m(5), hmdMat.m(6), hmdMat.m(7),
+                hmdMat.m(8), hmdMat.m(9), hmdMat.m(10), hmdMat.m(11),
+                0.0f, 0.0f, 0.0f, 1.0f
         );
     }
 
