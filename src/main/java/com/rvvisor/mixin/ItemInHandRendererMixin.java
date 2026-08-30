@@ -2,6 +2,7 @@ package com.rvvisor.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.rvvisor.RVVisorMod;
+import com.rvvisor.render.VRHandRenderer;
 import com.rvvisor.render.VRRenderEngine;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;

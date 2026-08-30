@@ -1,7 +1,6 @@
 package com.rvvisor.mixin;
 
 import com.rvvisor.RVVisorMod;
-import com.rvvisor.render.VRRenderEngine;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.PauseScreen;
 import net.minecraft.client.renderer.GameRenderer;
