@@ -109,6 +109,11 @@ public class VRRenderEngine {
             GL11.glDisable(GL11.GL_SCISSOR_TEST);
             RenderSystem.disableScissor();
             GL11.glEnable(GL11.GL_DEPTH_TEST);
+            GL11.glDepthMask(true);
+            GL11.glEnable(GL11.GL_BLEND);
+            RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
+            GL11.glEnable(GL11.GL_CULL_FACE);
             GlStateManager._enableDepthTest();
             GlStateManager._viewport(0, 0, fbo.getWidth(), fbo.getHeight());
             RenderSystem.viewport(0, 0, fbo.getWidth(), fbo.getHeight());
