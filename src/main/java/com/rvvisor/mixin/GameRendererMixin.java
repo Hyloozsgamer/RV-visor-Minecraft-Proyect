@@ -28,6 +28,10 @@ public abstract class GameRendererMixin {
     private Camera mainCamera;
 
     @Shadow
+    @Final
+    private net.minecraft.client.renderer.LightTexture lightTexture;
+
+    @Shadow
     public abstract void renderLevel(DeltaTracker deltaTracker);
 
     @Shadow
@@ -68,6 +72,11 @@ public abstract class GameRendererMixin {
             // 1. Poll VR tracking and update poses
             engine.onRenderFrameStart();
 
+            // Update dynamic lighting (caves, torches, sun, moon, lightmaps)
+            if (this.lightTexture != null) {
+                this.lightTexture.updateLightTexture(partialTicks);
+            }
+
             // Render active screen (Pause menu, Options, Inventory) into floating 3D canvas FBO
             if (this.minecraft.screen != null) {
                 engine.getGuiRenderer().renderScreenToFbo(this.minecraft, deltaTracker, partialTicks);
@@ -75,18 +84,21 @@ public abstract class GameRendererMixin {
                 engine.getHudRenderer().updateHudTexture(this.minecraft, deltaTracker);
             }
 
+            float depthFar = this.getDepthFar();
+            if (depthFar < 100.0f) depthFar = 1000.0f;
+
             // 2. EYE PASS 0: Left Eye (direct stereo render)
             engine.beginEyePass(LensSettings.EYE_LEFT, partialTicks);
             this.renderLevel(deltaTracker);
             // Render 3D Hands, crosshair, and floating GUI in world/eye space
-            engine.renderVRWorldElements(this.mainCamera, partialTicks, engine.getEyeProjectionMatrix(0.05f, 1000.0f));
+            engine.renderVRWorldElements(this.mainCamera, partialTicks, engine.getEyeProjectionMatrix(0.05f, depthFar));
             engine.endEyePass();
 
             // 3. EYE PASS 1: Right Eye (direct stereo render)
             engine.beginEyePass(LensSettings.EYE_RIGHT, partialTicks);
             this.renderLevel(deltaTracker);
             // Render 3D Hands, crosshair, and floating GUI in world/eye space
-            engine.renderVRWorldElements(this.mainCamera, partialTicks, engine.getEyeProjectionMatrix(0.05f, 1000.0f));
+            engine.renderVRWorldElements(this.mainCamera, partialTicks, engine.getEyeProjectionMatrix(0.05f, depthFar));
             engine.endEyePass();
 
             // 4. Submit stereo textures to OpenXR / OpenVR compositor and render spectator mirror
