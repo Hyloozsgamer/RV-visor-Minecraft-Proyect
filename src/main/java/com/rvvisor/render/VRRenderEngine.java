@@ -99,38 +99,32 @@ public class VRRenderEngine {
         this.currentEyePass = eye;
         this.isRenderingVR = true;
         this.trackingContext.updateInterpolatedPoses(partialTicks);
-
         VREyeFramebuffer fbo = (eye == 0) ? this.leftEyeFbo : this.rightEyeFbo;
         Minecraft mc = Minecraft.getInstance();
-
         if (fbo != null && mc != null && mc.getMainRenderTarget() != null) {
             fbo.ensureInitialized();
-            // FIX SODIUM: no redimensionar MainRenderTarget para que Sodium no descarte el pase translucido
-            mc.getMainRenderTarget().bindWrite(true);
-            GlStateManager._viewport(0, 0, fbo.getWidth(), fbo.getHeight());
-            RenderSystem.viewport(0, 0, fbo.getWidth(), fbo.getHeight());
+            int eyeW = fbo.getWidth();
+            int eyeH = fbo.getHeight();
+            // FIX: Solo resize si hace falta, no cada frame
+            if (mc.getMainRenderTarget().width != eyeW || mc.getMainRenderTarget().height != eyeH) {
+                mc.getMainRenderTarget().resize(eyeW, eyeH, Minecraft.ON_OSX);
+            }
             mc.getMainRenderTarget().clear(Minecraft.ON_OSX);
+            mc.getMainRenderTarget().bindWrite(true);
+            RenderSystem.viewport(0, 0, eyeW, eyeH);
         }
     }
 
-    /**
-     * Finaliza el render del ojo copiando el color resultante a su FBO dedicado.
-     */
     public void endEyePass() {
         VREyeFramebuffer fbo = (this.currentEyePass == 0) ? this.leftEyeFbo : this.rightEyeFbo;
         Minecraft mc = Minecraft.getInstance();
         if (fbo != null && mc != null && mc.getMainRenderTarget() != null) {
-            // Blit COLOR solamente (Sodium necesita depth intacto para agua y nubes)
+            if (fbo.isMsaa()) {
+                fbo.resolveMsaa();
+            }
             GlStateManager._glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, mc.getMainRenderTarget().frameBufferId);
-            GlStateManager._glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, fbo.getFramebufferId());
-
-            GL30.glBlitFramebuffer(
-                    0, 0, mc.getMainRenderTarget().width, mc.getMainRenderTarget().height,
-                    0, 0, fbo.getWidth(), fbo.getHeight(),
-                    GL11.GL_COLOR_BUFFER_BIT,
-                    GL11.GL_LINEAR
-            );
-
+            GlStateManager._glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, fbo.getResolvedFramebufferId());
+            GL30.glBlitFramebuffer(0, 0, fbo.getWidth(), fbo.getHeight(), 0, 0, fbo.getWidth(), fbo.getHeight(), GL11.GL_COLOR_BUFFER_BIT, GL11.GL_LINEAR);
             GlStateManager._glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
         }
         this.currentEyePass = -1;
@@ -173,10 +167,9 @@ public class VRRenderEngine {
 
             this.vrProvider.postSubmit();
 
-            // Dynamic Resolution Update (auto-steps scale based on 90Hz frame time si esta activo)
+            // Dynamic Resolution Update
             this.lensSettings.updateDynamicResolution(frameTimeMs);
 
-            // If DRS scale changed, resize framebuffers smoothly
             if (this.lensSettings.needsResize(this.leftEyeFbo)) {
                 int newW = this.lensSettings.getEffectiveWidth();
                 int newH = this.lensSettings.getEffectiveHeight();
@@ -185,9 +178,17 @@ public class VRRenderEngine {
                 if (this.rightEyeFbo != null) this.rightEyeFbo.resize(newW, newH, msaa);
             }
 
-            // Mirror directo al monitor desde el ojo izquierdo resuelto
+            // FIX MONITOR NEGRO: blitea el RESOLVED con GL_LINEAR
             if (this.leftEyeFbo != null && this.leftEyeFbo.isComplete()) {
-                this.leftEyeFbo.blitToScreen(windowWidth, windowHeight, false);
+                this.leftEyeFbo.blitResolvedToScreen(windowWidth, windowHeight);
+            }
+
+            // Restaurar MainRenderTarget a tamaño ventana
+            Minecraft mc = Minecraft.getInstance();
+            if (mc != null && mc.getMainRenderTarget() != null) {
+                if (mc.getMainRenderTarget().width != windowWidth || mc.getMainRenderTarget().height != windowHeight) {
+                    mc.getMainRenderTarget().resize(windowWidth, windowHeight, Minecraft.ON_OSX);
+                }
             }
 
         } finally {
