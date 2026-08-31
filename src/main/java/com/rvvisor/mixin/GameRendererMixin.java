@@ -93,6 +93,7 @@ public abstract class GameRendererMixin {
             // Render 3D Hands, crosshair, and floating GUI in world/eye space
             engine.renderVRWorldElements(this.mainCamera, partialTicks, engine.getEyeProjectionMatrix(0.05f, depthFar));
             engine.endEyePass();
+            this.minecraft.getMainRenderTarget().clear(Minecraft.ON_OSX);
 
             // 3. EYE PASS 1: Right Eye (direct stereo render)
             engine.beginEyePass(LensSettings.EYE_RIGHT, partialTicks);

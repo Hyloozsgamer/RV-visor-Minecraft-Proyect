@@ -93,7 +93,7 @@ public class VRRenderEngine {
     }
 
     /**
-     * Inicia el render del ojo preparando MainRenderTarget a resolucion nativa VR (compatible con Sodium, Iris, nubes, agua y cielo).
+     * Inicia el render del ojo usando el viewport sobre MainRenderTarget sin redimensionar (compatible al 100% con Sodium).
      */
     public void beginEyePass(int eye, float partialTicks) {
         this.currentEyePass = eye;
@@ -105,44 +105,30 @@ public class VRRenderEngine {
 
         if (fbo != null && mc != null && mc.getMainRenderTarget() != null) {
             fbo.ensureInitialized();
-            int eyeW = fbo.getWidth();
-            int eyeH = fbo.getHeight();
-
-            if (mc.getMainRenderTarget().width != eyeW || mc.getMainRenderTarget().height != eyeH) {
-                mc.getMainRenderTarget().resize(eyeW, eyeH, Minecraft.ON_OSX);
-            }
-            mc.getMainRenderTarget().clear(Minecraft.ON_OSX);
+            // FIX SODIUM: no redimensionar MainRenderTarget para que Sodium no descarte el pase translucido
             mc.getMainRenderTarget().bindWrite(true);
-
-            GL11.glDisable(GL11.GL_SCISSOR_TEST);
-            RenderSystem.disableScissor();
-            GL11.glEnable(GL11.GL_DEPTH_TEST);
-            GL11.glDepthMask(true);
-            GL11.glEnable(GL11.GL_BLEND);
-            RenderSystem.enableBlend();
-            RenderSystem.defaultBlendFunc();
-            GL11.glEnable(GL11.GL_CULL_FACE);
-            GlStateManager._enableDepthTest();
-            GlStateManager._viewport(0, 0, eyeW, eyeH);
-            RenderSystem.viewport(0, 0, eyeW, eyeH);
+            GlStateManager._viewport(0, 0, fbo.getWidth(), fbo.getHeight());
+            RenderSystem.viewport(0, 0, fbo.getWidth(), fbo.getHeight());
+            mc.getMainRenderTarget().clear(Minecraft.ON_OSX);
         }
     }
 
     /**
-     * Finaliza el render del ojo copiando MainRenderTarget (con agua, cielo, nubes y terreno completos) a su FBO dedicado.
+     * Finaliza el render del ojo copiando el color resultante a su FBO dedicado.
      */
     public void endEyePass() {
         VREyeFramebuffer fbo = (this.currentEyePass == 0) ? this.leftEyeFbo : this.rightEyeFbo;
         Minecraft mc = Minecraft.getInstance();
         if (fbo != null && mc != null && mc.getMainRenderTarget() != null) {
+            // Blit COLOR solamente (Sodium necesita depth intacto para agua y nubes)
             GlStateManager._glBindFramebuffer(GL30.GL_READ_FRAMEBUFFER, mc.getMainRenderTarget().frameBufferId);
             GlStateManager._glBindFramebuffer(GL30.GL_DRAW_FRAMEBUFFER, fbo.getFramebufferId());
 
             GL30.glBlitFramebuffer(
+                    0, 0, mc.getMainRenderTarget().width, mc.getMainRenderTarget().height,
                     0, 0, fbo.getWidth(), fbo.getHeight(),
-                    0, 0, fbo.getWidth(), fbo.getHeight(),
-                    GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT,
-                    GL11.GL_NEAREST
+                    GL11.GL_COLOR_BUFFER_BIT,
+                    GL11.GL_LINEAR
             );
 
             GlStateManager._glBindFramebuffer(GL30.GL_FRAMEBUFFER, 0);
@@ -202,14 +188,6 @@ public class VRRenderEngine {
             // Mirror directo al monitor desde el ojo izquierdo resuelto
             if (this.leftEyeFbo != null && this.leftEyeFbo.isComplete()) {
                 this.leftEyeFbo.blitToScreen(windowWidth, windowHeight, false);
-            }
-
-            // Restore MainRenderTarget to desktop window resolution
-            Minecraft mc = Minecraft.getInstance();
-            if (mc != null && mc.getMainRenderTarget() != null) {
-                if (mc.getMainRenderTarget().width != windowWidth || mc.getMainRenderTarget().height != windowHeight) {
-                    mc.getMainRenderTarget().resize(windowWidth, windowHeight, Minecraft.ON_OSX);
-                }
             }
 
         } finally {
